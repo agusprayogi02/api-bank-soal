@@ -1,4 +1,4 @@
-# Awesome Project Build with TypeORM
+# Api Bank Soal Project Build with TypeORM Express
 
 Steps to run this project:
 

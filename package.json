@@ -1,7 +1,7 @@
 {
-  "name": "apiBankSoal",
+  "name": "api-bank-soal",
   "version": "0.0.1",
-  "description": "Awesome project developed with TypeORM.",
+  "description": "Api Bank Soal Project Build with TypeORM Express.",
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/node": "^8.0.29",
