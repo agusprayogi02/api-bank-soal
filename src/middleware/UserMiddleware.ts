@@ -5,11 +5,9 @@ export var loginValidate = checkSchema({
   email: {
     in: ['body'],
     isEmpty: {
-      bail: true,
       errorMessage: error.EMPTY,
     },
     isEmail: {
-      bail: true,
       errorMessage: error.EMAIL,
     },
   },

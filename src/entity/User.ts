@@ -1,4 +1,13 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm'
+import {
+  Entity,
+  Column,
+  PrimaryGeneratedColumn,
+  OneToOne,
+  JoinColumn,
+  OneToMany,
+  ManyToOne,
+} from 'typeorm'
+import {Sekolah} from './Sekolah'
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -8,7 +17,7 @@ export enum UserRole {
 @Entity()
 export class User {
   @PrimaryGeneratedColumn('uuid')
-  uuid: string
+  uid: string
 
   @Column()
   firstName: string
@@ -25,15 +34,13 @@ export class User {
   @Column({type: 'int', width: 2})
   age: number
 
-  @Column()
+  @Column({type: 'int', width: 2})
   kelas: number
-
-  @Column({type: 'varchar', length: 30})
-  jurusan: string
-
-  @Column({type: 'varchar', length: 100})
-  sekolah: string
 
   @Column({type: 'enum', enum: UserRole, default: UserRole.SISWA})
   role: UserRole
+
+  @ManyToOne(() => Sekolah, {onUpdate: 'CASCADE'})
+  @JoinColumn({referencedColumnName: 'id'})
+  sekolah: Sekolah
 }

@@ -3,8 +3,10 @@ import {createConnection} from 'typeorm'
 import * as express from 'express'
 import * as bodyParser from 'body-parser'
 import {Request, Response} from 'express'
+import * as cors from 'cors'
 import {Routes} from './routes'
-import {User} from './entity/User'
+import {Sekolah} from './entity/Sekolah'
+import {User, UserRole} from './entity/User'
 import userRoute from './route/UserRoute'
 
 createConnection()
@@ -12,6 +14,8 @@ createConnection()
     // create express app
     const app = express()
     app.use(bodyParser.json())
+    app.use(bodyParser.urlencoded({extended: true}))
+    app.use(cors({origin: 'http://localhost:3000/'}))
 
     // register express routes from defined application routes
     Routes.forEach((route) => {
@@ -34,24 +38,31 @@ createConnection()
 
     // setup express app here
     // ...
-
+    var PORT = 4000
     // start express server
-    app.listen(3000)
+    app.listen(PORT)
 
     // insert new users for test
-    // await connection.manager.save(connection.manager.create(User, {
-    //     firstName: "Timber",
-    //     lastName: "Saw",
-    //     age: 27
-    // }));
-    // await connection.manager.save(connection.manager.create(User, {
-    //     firstName: "Phantom",
-    //     lastName: "Assassin",
-    //     age: 24
-    // }));
+    // await connection.manager.save(
+    //   connection.manager.create(Sekolah, {
+    //     nama: 'Kanesa',
+    //     jurusan: 'RPL 2',
+    //   }),
+    // )
+    // await connection.manager.save(
+    //   connection.manager.create(User, {
+    //     firstName: 'Phantom',
+    //     lastName: 'Assassin',
+    //     email: 'agus',
+    //     password: '123456',
+    //     age: 24,
+    //     kelas: 12,
+    //     role:UserRole.ADMIN
+    //   }),
+    // )
 
     console.log(
-      'Express server has started on port 3000. Open http://localhost:3000/users to see results',
+      `Express server has started on port ${PORT}. Open http://localhost:3000/users to see results`,
     )
   })
   .catch((error) => console.log(error))

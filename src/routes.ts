@@ -1,23 +1,11 @@
-import {UserController} from "./controller/UserController";
+import {UserRoute} from './route/UserRoute'
+import {SekolahRoute} from './route/SekolahRoute'
 
-export const Routes = [{
-    method: "get",
-    route: "/users",
-    controller: UserController,
-    action: "all"
-}, {
-    method: "get",
-    route: "/users/:id",
-    controller: UserController,
-    action: "one"
-}, {
-    method: "post",
-    route: "/users",
-    controller: UserController,
-    action: "save"
-}, {
-    method: "delete",
-    route: "/users/:id",
-    controller: UserController,
-    action: "remove"
-}];
+export interface Route {
+  method: string
+  route: string
+  controller: any
+  action: string
+}
+
+export const Routes: Array<Route> = [].concat(UserRoute, SekolahRoute)
