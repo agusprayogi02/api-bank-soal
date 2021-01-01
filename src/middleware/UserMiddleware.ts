@@ -4,7 +4,7 @@ import {error} from '../type'
 export var loginValidate = checkSchema({
   email: {
     in: ['body'],
-    isEmpty: {
+    notEmpty: {
       errorMessage: error.EMPTY,
     },
     isEmail: {
@@ -18,7 +18,7 @@ export var loginValidate = checkSchema({
       // Multiple options would be expressed as an array
       options: {min: 6},
     },
-    isEmpty: {
+    notEmpty: {
       bail: true,
       errorMessage: error.EMPTY,
     },
