@@ -62,7 +62,7 @@ createConnection()
     // )
 
     console.log(
-      `Express server has started on port ${PORT}. Open http://localhost:3000/users to see results`,
+      `Express server has started on port ${PORT}. Open http://localhost:${PORT}/users to see results`,
     )
   })
   .catch((error) => console.log(error))

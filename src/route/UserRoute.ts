@@ -43,6 +43,12 @@ export const UserRoute = [
   },
   {
     method: 'get',
+    route: '/',
+    controller: UserController,
+    action: 'all',
+  },
+  {
+    method: 'get',
     route: '/users/:id',
     controller: UserController,
     action: 'one',
