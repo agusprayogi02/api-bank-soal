@@ -1,4 +1,5 @@
-import {Entity, Column, PrimaryGeneratedColumn} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, OneToMany} from 'typeorm'
+import {User} from './User'
 
 @Entity()
 export class Sekolah {
@@ -8,6 +9,12 @@ export class Sekolah {
   @Column()
   nama: string
 
+  @Column({type: 'int', width: 2})
+  kelas: number
+
   @Column()
   jurusan: string
+
+  @OneToMany(() => User, (user) => user.sekolah)
+  users: User[]
 }

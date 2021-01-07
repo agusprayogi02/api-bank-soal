@@ -2,7 +2,7 @@ import {getRepository} from 'typeorm'
 import {NextFunction, Request, Response} from 'express'
 import {User} from '../entity/User'
 import {SekolahController} from './SekolahController'
-import {validationResult} from 'express-validator'
+import {error} from '../type'
 
 export class UserController {
   private userRepository = getRepository(User)
@@ -15,16 +15,29 @@ export class UserController {
     return this.userRepository.findOne(request.params.id, {relations: ['sekolah']})
   }
 
-  async save(request: Request, response: Response, next: NextFunction) {
-    const errors = validationResult(request)
-    if (!errors.isEmpty()) {
-      return response.status(422).json({errors: errors.array()})
-    }
-    var getSekolah = await new SekolahController().findOne(request.params.id)
+  async save(req: Request, res: Response, next: NextFunction) {
+    var getSekolah = await new SekolahController().findOne(req.params.id)
     var sekolah = {
       sekolah: getSekolah,
     }
-    return this.userRepository.save(Object.assign(request.body, sekolah))
+    var result = this.userRepository.save(Object.assign(req.body, sekolah))
+    if (result instanceof Promise) {
+      result.then((result) =>
+        result !== null && result !== undefined
+          ? res.send(result)
+          : res.send({
+              name: 'Error',
+              error: error.REGISTER,
+            }),
+      )
+    } else if (result !== null && result !== undefined) {
+      res.json(result)
+    } else {
+      res.send({
+        name: 'Error',
+        error: error.REGISTER,
+      })
+    }
   }
 
   async remove(request: Request, response: Response, next: NextFunction) {
@@ -33,10 +46,24 @@ export class UserController {
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
-    const errors = validationResult(req)
-    if (!errors.isEmpty()) {
-      return res.status(422).json({errors: errors.array()})
+    console.log(req.body)
+    var result = this.userRepository.findOne(req.body, {relations: ['sekolah']})
+    if (result instanceof Promise) {
+      result.then((result) =>
+        result !== null && result !== undefined
+          ? res.send(result)
+          : res.send({
+              name: 'Error',
+              error: error.LOGIN,
+            }),
+      )
+    } else if (result !== null && result !== undefined) {
+      res.json(result)
+    } else {
+      res.send({
+        name: 'Error',
+        error: error.LOGIN,
+      })
     }
-    return this.userRepository.findOne(req.body, {relations: ['sekolah']})
   }
 }

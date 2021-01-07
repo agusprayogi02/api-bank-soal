@@ -1,12 +1,4 @@
-import {
-  Entity,
-  Column,
-  PrimaryGeneratedColumn,
-  OneToOne,
-  JoinColumn,
-  OneToMany,
-  ManyToOne,
-} from 'typeorm'
+import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm'
 import {Sekolah} from './Sekolah'
 
 export enum UserRole {
@@ -25,7 +17,7 @@ export class User {
   @Column()
   lastName: string
 
-  @Column()
+  @Column({unique: true})
   email: string
 
   @Column()
@@ -34,13 +26,9 @@ export class User {
   @Column({type: 'int', width: 2})
   age: number
 
-  @Column({type: 'int', width: 2})
-  kelas: number
-
   @Column({type: 'enum', enum: UserRole, default: UserRole.SISWA})
   role: UserRole
 
-  @ManyToOne(() => Sekolah, {onUpdate: 'CASCADE'})
-  @JoinColumn({referencedColumnName: 'id'})
+  @ManyToOne(() => Sekolah, (sekolah) => sekolah.users, {onUpdate: 'CASCADE'})
   sekolah: Sekolah
 }

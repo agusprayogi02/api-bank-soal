@@ -8,6 +8,7 @@ import {Routes} from './routes'
 import {Sekolah} from './entity/Sekolah'
 import {User, UserRole} from './entity/User'
 import userRoute from './route/UserRoute'
+import {ValidationError} from 'express-validation'
 
 createConnection()
   .then(async (connection) => {
@@ -15,7 +16,7 @@ createConnection()
     const app = express()
     app.use(bodyParser.json())
     app.use(bodyParser.urlencoded({extended: true}))
-   // app.use(cors({origin: 'http://localhost:3000/'}))
+    // app.use(cors({origin: 'http://localhost:3000/'}))
     app.use(cors())
 
     // register express routes from defined application routes
@@ -36,6 +37,13 @@ createConnection()
       })
     })
     app.use('/users', userRoute)
+    app.use(function (err, req, res, next) {
+      if (err instanceof ValidationError) {
+        return res.status(err.statusCode).json(err)
+      }
+
+      return res.status(500).json(err)
+    })
 
     // setup express app here
     // ...

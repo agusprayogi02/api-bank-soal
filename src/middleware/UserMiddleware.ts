@@ -1,26 +1,10 @@
-import {checkSchema} from 'express-validator'
-import {error} from '../type'
+import {Joi} from 'express-validation'
 
-export var loginValidate = checkSchema({
-  email: {
-    in: ['body'],
-    notEmpty: {
-      errorMessage: error.EMPTY,
-    },
-    isEmail: {
-      errorMessage: error.EMAIL,
-    },
-  },
-  password: {
-    in: ['body'],
-    isLength: {
-      errorMessage: error.LENGTH,
-      // Multiple options would be expressed as an array
-      options: {min: 6},
-    },
-    notEmpty: {
-      bail: true,
-      errorMessage: error.EMPTY,
-    },
-  },
-})
+export var loginValidation = {
+  body: Joi.object({
+    email: Joi.string().email().required().exist(),
+    password: Joi.string()
+      .regex(/[a-zA-Z0-9]{3,30}/)
+      .required(),
+  }),
+}
