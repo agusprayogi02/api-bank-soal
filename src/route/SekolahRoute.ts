@@ -9,6 +9,12 @@ export const SekolahRoute = [
   },
   {
     method: 'get',
+    route: '/sekolah/get',
+    controller: SekolahController,
+    action: 'getAll',
+  },
+  {
+    method: 'get',
     route: '/sekolah/:id',
     controller: SekolahController,
     action: 'find',

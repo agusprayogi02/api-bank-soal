@@ -8,6 +8,10 @@ export class SekolahController {
     return this.sekolah.find({relations: ['users']})
   }
 
+  async getAll(req: Request, res: Response, next: NextFunction) {
+    return this.sekolah.find()
+  }
+
   async findOne(id: string) {
     return this.sekolah.findOne({where: {id: id}, relations: ['users']})
   }
