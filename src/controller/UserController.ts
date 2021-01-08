@@ -22,14 +22,23 @@ export class UserController {
     }
     var result = this.userRepository.save(Object.assign(req.body, sekolah))
     if (result instanceof Promise) {
-      result.then((result) =>
-        result !== null && result !== undefined
-          ? res.send(result)
-          : res.send({
+      result
+        .then((result) =>
+          result !== null && result !== undefined
+            ? res.send(result)
+            : res.send({
+                name: 'Error',
+                error: error.REGISTER,
+              }),
+        )
+        .catch(
+          (e) =>
+            res.send({
               name: 'Error',
-              error: error.REGISTER,
+              error: e.message,
             }),
-      )
+          // console.log('apa : ini :' + e.message),
+        )
     } else if (result !== null && result !== undefined) {
       res.json(result)
     } else {

@@ -6,6 +6,11 @@ export enum UserRole {
   SISWA = 'siswa',
   GURU = 'guru',
 }
+
+export enum Jk {
+  L = 'L',
+  P = 'P',
+}
 @Entity()
 export class User {
   @PrimaryGeneratedColumn()
@@ -23,8 +28,8 @@ export class User {
   @Column()
   password: string
 
-  @Column({type: 'int', width: 2})
-  age: number
+  @Column({type: 'enum', enum: Jk, default: Jk.L})
+  jk: Jk
 
   @Column({type: 'enum', enum: UserRole, default: UserRole.SISWA})
   role: UserRole

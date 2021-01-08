@@ -13,13 +13,9 @@ app.post(
   },
 )
 
-app.post(
-  '/:id',
-  validate(loginValidation, {}, {}),
-  (req: Request, res: Response, next: NextFunction) => {
-    new UserController().save(req, res, next)
-  },
-)
+app.post('/:id', (req: Request, res: Response, next: NextFunction) => {
+  new UserController().save(req, res, next)
+})
 
 export const UserRoute = [
   {
