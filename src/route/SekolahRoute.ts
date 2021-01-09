@@ -19,4 +19,10 @@ export const SekolahRoute = [
     controller: SekolahController,
     action: 'find',
   },
+  {
+    method: 'post',
+    route: '/sekolah/save',
+    controller: SekolahController,
+    action: 'save',
+  },
 ]

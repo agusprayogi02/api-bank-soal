@@ -1,4 +1,4 @@
-import {Entity, Column, PrimaryGeneratedColumn, ManyToOne} from 'typeorm'
+import {Entity, Column, PrimaryColumn, ManyToOne} from 'typeorm'
 import {Sekolah} from './Sekolah'
 
 export enum UserRole {
@@ -13,7 +13,7 @@ export enum Jk {
 }
 @Entity()
 export class User {
-  @PrimaryGeneratedColumn()
+  @PrimaryColumn('varchar', {length: 20})
   uid: string
 
   @Column()

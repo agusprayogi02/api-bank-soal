@@ -8,6 +8,10 @@ export class SekolahController {
     return this.sekolah.find({relations: ['users']})
   }
 
+  async save(req: Request, res: Response, next: NextFunction) {
+    return this.sekolah.save(req.body)
+  }
+
   async getAll(req: Request, res: Response, next: NextFunction) {
     return this.sekolah.find()
   }

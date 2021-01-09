@@ -3,6 +3,7 @@ import {NextFunction, Request, Response} from 'express'
 import {User} from '../entity/User'
 import {SekolahController} from './SekolahController'
 import {error} from '../type'
+import {makeid} from '../utils'
 
 export class UserController {
   private userRepository = getRepository(User)
@@ -18,6 +19,7 @@ export class UserController {
   async save(req: Request, res: Response, next: NextFunction) {
     var getSekolah = await new SekolahController().findOne(req.params.id)
     var sekolah = {
+      uid: makeid(16),
       sekolah: getSekolah,
     }
     var result = this.userRepository.save(Object.assign(req.body, sekolah))

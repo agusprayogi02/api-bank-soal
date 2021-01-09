@@ -2,7 +2,6 @@ import {Router, Request, Response, NextFunction} from 'express'
 import {loginValidation} from '../middleware/UserMiddleware'
 import {UserController} from '../controller/UserController'
 import {validate} from 'express-validation'
-import {error} from '../type'
 
 var app: Router = Router()
 app.post(

@@ -9,6 +9,7 @@ import {Sekolah} from './entity/Sekolah'
 import {User, UserRole} from './entity/User'
 import userRoute from './route/UserRoute'
 import {ValidationError} from 'express-validation'
+import * as Http from 'http'
 
 createConnection()
   .then(async (connection) => {
@@ -47,9 +48,11 @@ createConnection()
 
     // setup express app here
     // ...
-    var PORT = 4000
+    var PORT = '4000' || process.env.PORT
+    app.set('port', PORT)
     // start express server
-    app.listen(PORT)
+    const server = Http.createServer(app)
+    server.listen(PORT)
 
     // insert new users for test
     // await connection.manager.save(
