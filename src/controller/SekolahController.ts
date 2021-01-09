@@ -1,6 +1,7 @@
 import {Sekolah} from '../entity/Sekolah'
 import {getRepository} from 'typeorm'
 import {Request, Response, NextFunction} from 'express'
+import {makeid} from '../utils'
 
 export class SekolahController {
   private sekolah = getRepository(Sekolah)
@@ -9,7 +10,7 @@ export class SekolahController {
   }
 
   async save(req: Request, res: Response, next: NextFunction) {
-    return this.sekolah.save(req.body)
+    return this.sekolah.save(Object.assign(req.body, {code: makeid(6).toUpperCase()}))
   }
 
   async getAll(req: Request, res: Response, next: NextFunction) {

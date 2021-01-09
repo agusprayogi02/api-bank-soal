@@ -15,6 +15,9 @@ export class Sekolah {
   @Column()
   jurusan: string
 
+  @Column({type: 'varchar', length: 6})
+  code: string
+
   @OneToMany(() => User, (user) => user.sekolah)
   users: User[]
 }
