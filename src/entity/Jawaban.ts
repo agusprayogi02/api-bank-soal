@@ -1,4 +1,4 @@
-import {Entity, PrimaryGeneratedColumn, Column, OneToOne} from 'typeorm'
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm'
 import {Soal} from './Soal'
 
 @Entity()
@@ -9,6 +9,12 @@ export class Jawaban {
   @Column()
   answer: string
 
-  @OneToOne(() => Soal, (soal) => soal.jawaban)
+  @Column()
+  gambar: string
+
+  @Column()
+  jawab: boolean
+
+  @ManyToOne(() => Soal, (soal) => soal.jawaban)
   soal: Soal
 }
