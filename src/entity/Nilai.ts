@@ -1,5 +1,6 @@
-import {Entity, PrimaryGeneratedColumn, Column} from 'typeorm'
-import {type} from 'os'
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm'
+import {User} from './User'
+import {Pelajaran} from './Pelajaran'
 
 @Entity()
 export class Nilai {
@@ -14,4 +15,10 @@ export class Nilai {
 
   @Column()
   benar: number
+
+  @ManyToOne(() => User)
+  user: User
+
+  @ManyToOne(() => Pelajaran, (pelajaran) => pelajaran.nilai)
+  pelajaran: Pelajaran
 }

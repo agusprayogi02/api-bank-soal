@@ -1,5 +1,9 @@
 import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm'
 import {Soal} from './Soal'
+export enum Jawab {
+  SALAH = 'salah',
+  BENAR = 'benar',
+}
 
 @Entity()
 export class Jawaban {
@@ -12,8 +16,8 @@ export class Jawaban {
   @Column()
   gambar: string
 
-  @Column()
-  jawab: boolean
+  @Column({type: 'enum', enum: Jawab, default: Jawab.SALAH})
+  jawab: Jawab
 
   @ManyToOne(() => Soal, (soal) => soal.jawaban)
   soal: Soal

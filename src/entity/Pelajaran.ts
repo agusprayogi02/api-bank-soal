@@ -1,6 +1,8 @@
 import {Entity, PrimaryColumn, Column, ManyToMany, OneToMany, ManyToOne} from 'typeorm'
 import {User} from './User'
 import {Soal} from './Soal'
+import {Sekolah} from './Sekolah'
+import {Nilai} from './Nilai'
 
 @Entity()
 export class Pelajaran {
@@ -10,9 +12,15 @@ export class Pelajaran {
   @Column({type: 'varchar', length: 100})
   nama: string
 
-  @ManyToOne(() => User, (user) => user.pelajarans)
-  user: User
+  @Column()
+  deskripsi: string
+
+  @ManyToOne(() => Sekolah, (sekolah) => sekolah.pelajarans)
+  sekolah: Sekolah
 
   @OneToMany(() => Soal, (soal) => soal.pelajaran)
   soals: Soal[]
+
+  @OneToMany(() => Nilai, (nilai) => nilai.pelajaran)
+  nilai: Nilai[]
 }
