@@ -4,6 +4,7 @@ import {User} from '../entity/User'
 import {SekolahController} from './SekolahController'
 import {error} from '../type'
 import {makeid} from '../utils'
+import {ResultBack} from '../resultBack'
 
 export class UserController {
   private userRepository = getRepository(User)
@@ -27,26 +28,32 @@ export class UserController {
       result
         .then((result) =>
           result !== null && result !== undefined
-            ? res.send(result)
-            : res.send({
-                name: 'Error',
-                error: error.REGISTER,
+            ? res.send(<ResultBack>{
+                status: 200,
+                data: result,
+              })
+            : res.send(<ResultBack>{
+                status: 404,
+                data: {name: 'Error', error: error.REGISTER},
               }),
         )
         .catch(
-          (e) =>
-            res.send({
-              name: 'Error',
-              error: e.message,
+          (e: Error) =>
+            res.send(<ResultBack>{
+              status: 500,
+              data: {name: e.name, error: e.message},
             }),
           // console.log('apa : ini :' + e.message),
         )
     } else if (result !== null && result !== undefined) {
-      res.json(result)
+      res.json(<ResultBack>{
+        status: 200,
+        data: result,
+      })
     } else {
-      res.send({
-        name: 'Error',
-        error: error.REGISTER,
+      res.send(<ResultBack>{
+        status: 404,
+        data: {name: 'Error', error: error.REGISTER},
       })
     }
   }
@@ -62,18 +69,24 @@ export class UserController {
     if (result instanceof Promise) {
       result.then((result) =>
         result !== null && result !== undefined
-          ? res.send(result)
-          : res.send({
-              name: 'Error',
-              error: error.LOGIN,
+          ? res.send(<ResultBack>{
+              status: 200,
+              data: result,
+            })
+          : res.send(<ResultBack>{
+              status: 404,
+              data: {name: 'Error', error: error.LOGIN},
             }),
       )
     } else if (result !== null && result !== undefined) {
-      res.json(result)
+      res.json(<ResultBack>{
+        status: 200,
+        data: result,
+      })
     } else {
-      res.send({
-        name: 'Error',
-        error: error.LOGIN,
+      res.send(<ResultBack>{
+        status: 404,
+        data: {name: 'Error', error: error.LOGIN},
       })
     }
   }

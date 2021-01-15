@@ -10,6 +10,7 @@ import {User, UserRole} from './entity/User'
 import userRoute from './route/UserRoute'
 import {ValidationError} from 'express-validation'
 import * as Http from 'http'
+import {ResultBack} from './resultBack'
 
 createConnection()
   .then(async (connection) => {
@@ -27,23 +28,41 @@ createConnection()
         if (result instanceof Promise) {
           result.then((result) =>
             result !== null && result !== undefined
-              ? res.send(result)
-              : res.status(500).send('Tidak ada Id yang sama dalam database!'),
+              ? res.send(<ResultBack>{
+                  status: 200,
+                  data: result,
+                })
+              : res.send(<ResultBack>{
+                  status: 500,
+                  data: {name: 'Error', error: 'Tidak ada Id yang sama dalam database!'},
+                }),
           )
         } else if (result !== null && result !== undefined) {
-          res.json(result)
+          res.json(<ResultBack>{
+            status: 200,
+            data: result,
+          })
         } else {
-          res.status(500).send('Tidak ada Id yang sama dalam database!')
+          res.send(<ResultBack>{
+            status: 500,
+            data: {name: 'Error', error: 'Tidak ada Id yang sama dalam database!'},
+          })
         }
       })
     })
     app.use('/users', userRoute)
     app.use(function (err, req, res, next) {
       if (err instanceof ValidationError) {
-        return res.send(err)
+        return res.send(<ResultBack>{
+          status: err.statusCode,
+          data: {name: err.name, error: err.message},
+        })
       }
 
-      return res.json(err)
+      return res.json(<ResultBack>{
+        status: err.statusCode,
+        data: {name: err.name, error: err.message},
+      })
     })
 
     // setup express app here

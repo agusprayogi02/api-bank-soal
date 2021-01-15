@@ -6,11 +6,11 @@ import {makeid} from '../utils'
 export class SekolahController {
   private sekolah = getRepository(Sekolah)
   async all(req: Request, res: Response, next: NextFunction) {
-    return this.sekolah.find({relations: ['users']})
+    return this.sekolah.find({relations: ['users', 'pelajarans']})
   }
 
   async save(req: Request, res: Response, next: NextFunction) {
-    return this.sekolah.save(Object.assign(req.body, {code: makeid(6).toUpperCase()}))
+    return this.sekolah.save(Object.assign(req.body, {kode: makeid(6).toUpperCase()}))
   }
 
   async getAll(req: Request, res: Response, next: NextFunction) {
@@ -18,10 +18,10 @@ export class SekolahController {
   }
 
   async findOne(id: string) {
-    return this.sekolah.findOne({where: {id: id}, relations: ['users']})
+    return this.sekolah.findOne({where: {id: id}, relations: ['users', 'pelajarans']})
   }
 
   async find(req: Request, res: Response, next: NextFunction) {
-    return this.sekolah.findOne(req.params.id, {relations: ['users']})
+    return this.sekolah.findOne(req.params.id, {relations: ['users', 'pelajarans']})
   }
 }
