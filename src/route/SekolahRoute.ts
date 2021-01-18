@@ -1,6 +1,7 @@
 import {SekolahController} from '../controller/SekolahController'
+import {Route} from '../routes'
 
-export const SekolahRoute = [
+export const SekolahRoute = <Route[]>[
   {
     method: 'get',
     route: '/sekolah',

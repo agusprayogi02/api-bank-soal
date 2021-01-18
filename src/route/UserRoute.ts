@@ -2,6 +2,7 @@ import {Router, Request, Response, NextFunction} from 'express'
 import {loginValidation} from '../middleware/UserMiddleware'
 import {UserController} from '../controller/UserController'
 import {validate} from 'express-validation'
+import {Route} from '../routes'
 
 var app: Router = Router()
 app.post(
@@ -16,7 +17,7 @@ app.post('/:id', (req: Request, res: Response, next: NextFunction) => {
   new UserController().save(req, res, next)
 })
 
-export const UserRoute = [
+export const UserRoute = <Route[]>[
   {
     method: 'get',
     route: '/users',
