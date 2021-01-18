@@ -1,6 +1,7 @@
 import {Entity, Column, PrimaryColumn, ManyToOne, OneToMany} from 'typeorm'
 import {Sekolah} from './Sekolah'
 import {Nilai} from './Nilai'
+import {Pelajaran} from './Pelajaran'
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -38,6 +39,9 @@ export class User {
   @ManyToOne(() => Sekolah, (sekolah) => sekolah.users, {onUpdate: 'CASCADE'})
   sekolah: Sekolah
 
+  @OneToMany(() => Pelajaran, (pelajaran) => pelajaran.guru)
+  pelajarans: Pelajaran[]
+
   @OneToMany(() => Nilai, (nilai) => nilai.user)
-  nilai: Nilai[]
+  nilais: Nilai[]
 }

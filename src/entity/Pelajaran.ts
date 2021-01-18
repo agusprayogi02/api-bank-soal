@@ -18,6 +18,9 @@ export class Pelajaran {
   @ManyToOne(() => Sekolah, (sekolah) => sekolah.pelajarans)
   sekolah: Sekolah
 
+  @ManyToOne(() => User, (user) => user.pelajarans)
+  guru: User
+
   @OneToMany(() => Soal, (soal) => soal.pelajaran)
   soals: Soal[]
 

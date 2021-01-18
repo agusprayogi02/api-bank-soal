@@ -16,7 +16,7 @@ export class Nilai {
   @Column()
   benar: number
 
-  @ManyToOne(() => User)
+  @ManyToOne(() => User, (user) => user.nilais)
   user: User
 
   @ManyToOne(() => Pelajaran, (pelajaran) => pelajaran.nilai)
