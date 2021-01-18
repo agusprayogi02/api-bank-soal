@@ -15,6 +15,9 @@ export class Pelajaran {
   @Column()
   deskripsi: string
 
+  @Column()
+  gambar: string
+
   @ManyToOne(() => Sekolah, (sekolah) => sekolah.pelajarans)
   sekolah: Sekolah
 

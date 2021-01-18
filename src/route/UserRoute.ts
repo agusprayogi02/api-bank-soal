@@ -42,6 +42,12 @@ export const UserRoute = <Route[]>[
     controller: UserController,
     action: 'remove',
   },
+  {
+    method: 'get',
+    route: '/users/pelajaran/:id',
+    controller: UserController,
+    action: 'pelajaran',
+  },
 ]
 
 export default app
