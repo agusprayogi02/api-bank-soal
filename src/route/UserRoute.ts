@@ -1,5 +1,5 @@
 import {Router, Request, Response, NextFunction} from 'express'
-import {loginValidation} from '../middleware/UserMiddleware'
+import {loginValidation, signUpValidation} from '../middleware/UserMiddleware'
 import {UserController} from '../controller/UserController'
 import {validate} from 'express-validation'
 import {Route} from '../routes'
@@ -13,9 +13,13 @@ app.post(
   },
 )
 
-app.post('/:id', (req: Request, res: Response, next: NextFunction) => {
-  new UserController().save(req, res, next)
-})
+app.post(
+  '/:id',
+  validate(signUpValidation, {}, {}),
+  (req: Request, res: Response, next: NextFunction) => {
+    new UserController().save(req, res, next)
+  },
+)
 
 export const UserRoute = <Route[]>[
   {

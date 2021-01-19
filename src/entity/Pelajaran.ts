@@ -1,7 +1,6 @@
-import {Entity, PrimaryColumn, Column, ManyToMany, OneToMany, ManyToOne} from 'typeorm'
+import {Entity, PrimaryColumn, Column, OneToMany, ManyToOne} from 'typeorm'
 import {User} from './User'
 import {Soal} from './Soal'
-import {Sekolah} from './Sekolah'
 import {Nilai} from './Nilai'
 
 @Entity()
@@ -17,9 +16,6 @@ export class Pelajaran {
 
   @Column()
   gambar: string
-
-  @ManyToOne(() => Sekolah, (sekolah) => sekolah.pelajarans)
-  sekolah: Sekolah
 
   @ManyToOne(() => User, (user) => user.pelajarans)
   guru: User

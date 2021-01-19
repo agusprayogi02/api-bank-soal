@@ -92,6 +92,10 @@ export class UserController {
   }
 
   async pelajaran(req: Request, res: Response, next: NextFunction) {
-    return this.userRepository.find({relations: ['pelajarans'], where: {uid: req.params.id}})
+    return this.userRepository.findOne(req.params.id, {relations: ['pelajarans']})
+  }
+
+  async findOne(uid: string) {
+    return this.userRepository.findOne(uid)
   }
 }
