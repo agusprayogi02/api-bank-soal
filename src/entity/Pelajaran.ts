@@ -1,28 +1,28 @@
-import {Entity, PrimaryColumn, Column, OneToMany, ManyToOne} from 'typeorm'
-import {User} from './User'
-import {Soal} from './Soal'
-import {Nilai} from './Nilai'
+import {Entity, PrimaryColumn, Column, OneToMany, ManyToOne} from 'typeorm';
+import {User} from './User';
+import {Soal} from './Soal';
+import {Nilai} from './Nilai';
 
 @Entity()
 export class Pelajaran {
   @PrimaryColumn({type: 'varchar', length: 20})
-  kdPelajaran: string
+  kdPelajaran: string;
 
   @Column({type: 'varchar', length: 100})
-  nama: string
+  nama: string;
 
   @Column()
-  deskripsi: string
+  deskripsi: string;
 
   @Column()
-  gambar: string
+  gambar: string;
 
   @ManyToOne(() => User, (user) => user.pelajarans)
-  guru: User
+  guru: User;
 
   @OneToMany(() => Soal, (soal) => soal.pelajaran)
-  soals: Soal[]
+  soals: Soal[];
 
   @OneToMany(() => Nilai, (nilai) => nilai.pelajaran)
-  nilai: Nilai[]
+  nilais: Nilai[];
 }

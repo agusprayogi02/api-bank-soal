@@ -1,5 +1,5 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm'
-import {Soal} from './Soal'
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
+import {Soal} from './Soal';
 export enum Jawab {
   SALAH = 'salah',
   BENAR = 'benar',
@@ -8,17 +8,17 @@ export enum Jawab {
 @Entity()
 export class Jawaban {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column()
-  answer: string
+  answer: string;
 
   @Column()
-  gambar: string
+  gambar: string;
 
   @Column({type: 'enum', enum: Jawab, default: Jawab.SALAH})
-  jawab: Jawab
+  jawab: Jawab;
 
   @ManyToOne(() => Soal, (soal) => soal.jawaban)
-  soal: Soal
+  soal: Soal;
 }

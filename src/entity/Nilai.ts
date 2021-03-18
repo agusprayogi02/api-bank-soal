@@ -1,24 +1,24 @@
-import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm'
-import {User} from './User'
-import {Pelajaran} from './Pelajaran'
+import {Entity, PrimaryGeneratedColumn, Column, ManyToOne} from 'typeorm';
+import {User} from './User';
+import {Pelajaran} from './Pelajaran';
 
 @Entity()
 export class Nilai {
   @PrimaryGeneratedColumn()
-  id: number
+  id: number;
 
   @Column({type: 'int', width: 3})
-  nilai: number
+  nilai: number;
 
   @Column()
-  salah: number
+  salah: number;
 
   @Column()
-  benar: number
+  benar: number;
 
   @ManyToOne(() => User, (user) => user.nilais)
-  user: User
+  user: User;
 
-  @ManyToOne(() => Pelajaran, (pelajaran) => pelajaran.nilai)
-  pelajaran: Pelajaran
+  @ManyToOne(() => Pelajaran, (pelajaran) => pelajaran.nilais)
+  pelajaran: Pelajaran;
 }
