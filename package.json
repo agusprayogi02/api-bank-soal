@@ -9,9 +9,11 @@
     "@types/node": "^8.0.29",
     "nodemon": "^2.0.7",
     "ts-node": "3.3.0",
-    "typescript": "3.3.3333"
+    "typescript": "3.3.3333",
+    "@types/bcrypt": "2.0.0"
   },
   "dependencies": {
+    "bcrypt": "^5.0.1",
     "body-parser": "^1.18.1",
     "cors": "^2.8.5",
     "express": "^4.15.4",

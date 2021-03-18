@@ -5,6 +5,7 @@ import {SekolahController} from './SekolahController';
 import {error} from '../type';
 import {makeid} from '../utils';
 import {ResultBack} from '../resultBack';
+import * as bcrypt from 'bcrypt';
 
 export class UserController {
   private userRepository = getRepository(User);
@@ -14,17 +15,21 @@ export class UserController {
   }
 
   async one(request: Request, response: Response, next: NextFunction) {
-    return this.userRepository.findOne(request.params.id, {relations: ['sekolah']});
+    return this.userRepository.findOne(request.params.id, {
+      relations: ['sekolah', 'pelajarans', 'nilais'],
+    });
   }
 
   async save(req: Request, res: Response, next: NextFunction) {
     var getSekolah = await new SekolahController().findOne(req.params.id);
+    var password = await bcrypt.hash(req.body.password, 10);
+    delete req.body.password;
     var sekolah = {
       uid: makeid(16),
+      password,
       sekolah: getSekolah,
     };
     var result = this.userRepository.save(Object.assign(req.body, sekolah));
-    console.log(result);
 
     if (result instanceof Promise) {
       result
@@ -67,19 +72,30 @@ export class UserController {
 
   async login(req: Request, res: Response, next: NextFunction) {
     console.log(req.body);
-    var result = this.userRepository.findOne(req.body, {relations: ['sekolah']});
+    var result = this.userRepository.findOne({email: req.body.email}, {relations: ['sekolah']});
     if (result instanceof Promise) {
-      result.then((result) =>
-        result !== null && result !== undefined
-          ? res.send(<ResultBack>{
+      result.then(async (result) => {
+        console.log(result);
+        if (result !== null && result !== undefined) {
+          var hasil = await bcrypt.compare(req.body.password, result.password);
+          if (hasil) {
+            res.json(<ResultBack>{
               status: 200,
               data: result,
-            })
-          : res.send(<ResultBack>{
+            });
+          } else {
+            res.send(<ResultBack>{
               status: 404,
-              data: {name: 'Error', error: error.LOGIN},
-            }),
-      );
+              data: {name: 'Error', error: error.LOGINPASS},
+            });
+          }
+        } else {
+          res.send(<ResultBack>{
+            status: 404,
+            data: {name: 'Error', error: error.LOGINEMAIL},
+          });
+        }
+      });
     } else if (result !== null && result !== undefined) {
       res.json(<ResultBack>{
         status: 200,
@@ -88,7 +104,7 @@ export class UserController {
     } else {
       res.send(<ResultBack>{
         status: 404,
-        data: {name: 'Error', error: error.LOGIN},
+        data: {name: 'Error', error: error.LOGINEMAIL},
       });
     }
   }

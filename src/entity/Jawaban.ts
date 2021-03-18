@@ -13,7 +13,7 @@ export class Jawaban {
   @Column()
   answer: string;
 
-  @Column()
+  @Column({default: null})
   gambar: string;
 
   @Column({type: 'enum', enum: Jawab, default: Jawab.SALAH})

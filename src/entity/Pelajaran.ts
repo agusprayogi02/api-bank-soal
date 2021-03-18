@@ -14,7 +14,7 @@ export class Pelajaran {
   @Column()
   deskripsi: string;
 
-  @Column()
+  @Column({default: null})
   gambar: string;
 
   @ManyToOne(() => User, (user) => user.pelajarans)
