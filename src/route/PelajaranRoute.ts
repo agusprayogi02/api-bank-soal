@@ -9,8 +9,17 @@ const app: Router = Router();
 app.post(
   '/create',
   upload('pelajaran', 'image'),
-  (err, req: Request, res: Response, next: NextFunction) =>
-    new PelajaranController().create(err, req, res, next),
+  (req: Request, res: Response, next: NextFunction) =>
+    new PelajaranController().create(req, res, next),
+);
+
+app.post(
+  '/upload',
+  upload('pelajaran', 'image'),
+  (req: Request, res: Response, next: NextFunction) => {
+    console.log(req.file);
+    res.json({file: req.file.path});
+  },
 );
 
 export const PelajaranRoute = <Route[]>[
