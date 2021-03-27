@@ -1,24 +1,21 @@
-import {Router, Request, Response, NextFunction} from 'express'
-import {loginValidation} from '../middleware/UserMiddleware'
-import {UserController} from '../controller/UserController'
-import {validate} from 'express-validation'
-import {Route} from '../routes'
+import {Router, Request, Response, NextFunction} from 'express';
+import {loginValidation} from '../middleware/UserMiddleware';
+import {UserController} from '../controller/UserController';
+import {validate} from 'express-validation';
+import {Route} from '../routes';
 
-var app: Router = Router()
+const app: Router = Router();
 app.post(
   '/login',
   validate(loginValidation, {}, {}),
   (req: Request, res: Response, next: NextFunction) => {
-    new UserController().login(req, res, next)
+    new UserController().login(req, res, next);
   },
-)
+);
 
-app.post(
-  '/:id',
-  (req: Request, res: Response, next: NextFunction) => {
-    new UserController().save(req, res, next)
-  },
-)
+app.post('/:id', (req: Request, res: Response, next: NextFunction) => {
+  new UserController().save(req, res, next);
+});
 
 export const UserRoute = <Route[]>[
   {
@@ -51,6 +48,6 @@ export const UserRoute = <Route[]>[
     controller: UserController,
     action: 'pelajaran',
   },
-]
+];
 
-export default app
+export default app;

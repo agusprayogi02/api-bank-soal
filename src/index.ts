@@ -5,19 +5,18 @@ import * as bodyParser from 'body-parser';
 import {Request, Response} from 'express';
 import * as cors from 'cors';
 import {Routes} from './routes';
-import {Sekolah} from './entity/Sekolah';
-import {Jk, User, UserRole} from './entity/User';
 import userRoute from './route/UserRoute';
 import {ValidationError} from 'express-validation';
 import * as Http from 'http';
 import {ResultBack} from './resultBack';
+import PelajaranRoute from './route/PelajaranRoute';
 
 createConnection()
   .then(async (connection) => {
     // create express app
     const app = express();
     app.use(bodyParser.json());
-    app.use(bodyParser.urlencoded({extended: true}));
+    app.use(bodyParser.urlencoded({extended: false}));
     // app.use(cors({origin: 'http://localhost:3000/'}))
     app.use(cors());
 
@@ -51,6 +50,7 @@ createConnection()
       });
     });
     app.use('/users', userRoute);
+    app.use('/pelajaran', PelajaranRoute);
     app.use(function (err, req, res, next) {
       if (err instanceof ValidationError) {
         return res.send(<ResultBack>{
