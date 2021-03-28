@@ -30,24 +30,26 @@ export class PelajaranController {
     var user = await new UserController().findOne(uid);
     var data = {
       kdPelajaran: makeid(8).toUpperCase(),
-      gambar: req.file.path,
+      gambar: req.file.filename,
       guru: user,
     };
     // console.log(data);
     // console.log(Object.assign(req.body, data));
     var save = this.pelajaran.save(Object.assign(req.body, data));
     save
-      .then((result) =>
-        result !== null && result !== undefined
-          ? res.send(<ResultBack>{
-              status: 200,
-              data: result,
-            })
-          : res.send(<ResultBack>{
-              status: 500,
-              data: {name: 'Error', error: 'Tidak ada Id yang sama dalam database!'},
-            }),
-      )
+      .then(async (result) => {
+        if (result !== null && result !== undefined) {
+          var pelajaran = await new UserController().findPelajaran(uid);
+          res.send(<ResultBack>{
+            status: 200,
+            data: pelajaran,
+          });
+        }
+        res.send(<ResultBack>{
+          status: 500,
+          data: {name: 'Error', error: 'Tidak ada Id yang sama dalam database!'},
+        });
+      })
       .catch((err) => {
         res.send(<ResultBack>{
           status: 500,

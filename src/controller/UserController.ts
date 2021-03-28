@@ -110,7 +110,13 @@ export class UserController {
   }
 
   async pelajaran(req: Request, res: Response, next: NextFunction) {
-    return this.userRepository.findOne(req.params.id, {relations: ['pelajarans']});
+    var pel = await this.userRepository.findOne(req.params.id, {relations: ['pelajarans']});
+    return pel.pelajarans;
+  }
+
+  async findPelajaran(uid: string) {
+    const pel = await this.userRepository.findOne(uid, {relations: ['pelajarans']});
+    return pel.pelajarans;
   }
 
   async findOne(uid: string) {
