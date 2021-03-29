@@ -1,22 +1,23 @@
-import {Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToMany} from 'typeorm'
-import {Jawaban} from './Jawaban'
-import {Pelajaran} from './Pelajaran'
+import {Entity, PrimaryGeneratedColumn, Column, JoinColumn, ManyToOne, OneToMany} from 'typeorm';
+import {Jawaban} from './Jawaban';
+import {Kuis} from './Kuis';
+import {Pelajaran} from './Pelajaran';
 
 @Entity()
 export class Soal {
   @PrimaryGeneratedColumn()
-  kdSoal: number
+  kdSoal: number;
 
   @Column('text')
-  soal: string
+  soal: string;
 
   @Column()
-  gambar: string
+  gambar: string;
 
   @OneToMany(() => Jawaban, (jawab) => jawab.soal, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
   @JoinColumn()
-  jawaban: Jawaban
+  jawaban: Jawaban;
 
-  @ManyToOne(() => Pelajaran, (pelajar) => pelajar.soals)
-  pelajaran: Pelajaran
+  @ManyToOne(() => Kuis, (kuis) => kuis.soals)
+  kuis: Kuis;
 }

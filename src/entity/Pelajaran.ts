@@ -1,7 +1,7 @@
 import {Entity, PrimaryColumn, Column, OneToMany, ManyToOne} from 'typeorm';
 import {User} from './User';
-import {Soal} from './Soal';
 import {Nilai} from './Nilai';
+import {Kuis} from './Kuis';
 
 @Entity()
 export class Pelajaran {
@@ -20,9 +20,6 @@ export class Pelajaran {
   @ManyToOne(() => User, (user) => user.pelajarans)
   guru: User;
 
-  @OneToMany(() => Soal, (soal) => soal.pelajaran)
-  soals: Soal[];
-
-  @OneToMany(() => Nilai, (nilai) => nilai.pelajaran)
-  nilais: Nilai[];
+  @OneToMany(() => Kuis, (kuis) => kuis.pelajaran)
+  kuises: Kuis[];
 }
