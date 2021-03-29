@@ -14,6 +14,9 @@ export class Kuis {
   @Column()
   deskripsi: string;
 
+  @Column({default: null})
+  gambar: string;
+
   @ManyToOne(() => Pelajaran, (pel) => pel.kuises)
   pelajaran: Pelajaran;
 

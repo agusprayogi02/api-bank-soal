@@ -1,4 +1,4 @@
-import {Sekolah} from '../entity/Sekolah';
+import {Sekolah} from '../entity';
 import {getRepository} from 'typeorm';
 import {Request, Response, NextFunction} from 'express';
 import {makeid} from '../utils';

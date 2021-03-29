@@ -1,6 +1,6 @@
 import {getRepository} from 'typeorm';
 import {Request, Response, NextFunction} from 'express';
-import {Soal} from '../entity/Soal';
+import {Soal} from '../entity';
 
 export class SoalController {
   private soal = getRepository(Soal);

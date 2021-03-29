@@ -1,6 +1,6 @@
 import {Router, Request, Response, NextFunction} from 'express';
 import {loginValidation} from '../middleware/UserMiddleware';
-import {UserController} from '../controller/UserController';
+import {UserController} from '../controller';
 import {validate} from 'express-validation';
 import {Route} from '../routes';
 
