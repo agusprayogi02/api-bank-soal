@@ -5,11 +5,12 @@ import * as bodyParser from 'body-parser';
 import {Request, Response} from 'express';
 import * as cors from 'cors';
 import {Routes} from './routes';
-import userRoute from './route/UserRoute';
 import {ValidationError} from 'express-validation';
 import * as Http from 'http';
 import {ResultBack} from './resultBack';
+import userRoute from './route/UserRoute';
 import PelajaranRoute from './route/PelajaranRoute';
+import KuisRoute from './route/KuisRoute';
 
 createConnection()
   .then(async (connection) => {
@@ -52,6 +53,7 @@ createConnection()
     });
     app.use('/users', userRoute);
     app.use('/pelajaran', PelajaranRoute);
+    app.use('/kuis', KuisRoute);
     app.use(function (err, req, res, next) {
       if (err instanceof ValidationError) {
         return res.send(<ResultBack>{

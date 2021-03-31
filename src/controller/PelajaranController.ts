@@ -59,4 +59,13 @@ export class PelajaranController {
         });
       });
   }
+
+  async findOne(kd: string) {
+    return this.pelajaran.findOne(kd, {relations: ['guru', 'kuises']});
+  }
+
+  async findKuis(kd: string) {
+    const pel = await this.pelajaran.findOne(kd, {relations: ['kuises']});
+    return pel.kuises;
+  }
 }

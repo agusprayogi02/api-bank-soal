@@ -1,12 +1,12 @@
-import {Column, Entity, ManyToOne, OneToMany, PrimaryGeneratedColumn} from 'typeorm';
+import {Column, Entity, ManyToOne, OneToMany, PrimaryColumn} from 'typeorm';
 import {Nilai} from './Nilai';
 import {Pelajaran} from './Pelajaran';
 import {Soal} from './Soal';
 
 @Entity()
 export class Kuis {
-  @PrimaryGeneratedColumn()
-  kd: number;
+  @PrimaryColumn()
+  kd: string;
 
   @Column()
   nama: string;
@@ -16,6 +16,9 @@ export class Kuis {
 
   @Column({default: null})
   gambar: string;
+
+  @Column()
+  tenggat: string;
 
   @ManyToOne(() => Pelajaran, (pel) => pel.kuises)
   pelajaran: Pelajaran;

@@ -5,6 +5,7 @@ import {
   NilaiRoute,
   JawabanRoute,
   SoalRoute,
+  KuisRoute,
 } from './route';
 
 export interface Route {
@@ -21,4 +22,5 @@ export const Routes: Array<Route> = [].concat(
   NilaiRoute,
   JawabanRoute,
   SoalRoute,
+  KuisRoute,
 );
