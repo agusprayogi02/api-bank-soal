@@ -28,6 +28,12 @@ export const KuisRoute = <Route[]>[
     controller: KuisController,
     action: 'kuisByPel',
   },
+  {
+    method: 'delete',
+    route: '/kuis/:kd',
+    controller: KuisController,
+    action: 'remove',
+  },
 ];
 
 export default app;

@@ -60,4 +60,9 @@ export class KuisController {
         });
       });
   }
+
+  async remove(req: Request, res: Response, next: NextFunction) {
+    let kuis = await this.kuis.findOne(req.params.kd);
+    return this.kuis.remove(kuis);
+  }
 }

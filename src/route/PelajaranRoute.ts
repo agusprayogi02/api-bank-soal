@@ -35,6 +35,12 @@ export const PelajaranRoute = <Route[]>[
     controller: PelajaranController,
     action: 'one',
   },
+  {
+    method: 'delete',
+    route: '/pelajaran/:kd',
+    controller: PelajaranController,
+    action: 'remove',
+  },
 ];
 
 export default app;

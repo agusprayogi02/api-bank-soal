@@ -68,4 +68,9 @@ export class PelajaranController {
     const pel = await this.pelajaran.findOne(kd, {relations: ['kuises']});
     return pel.kuises;
   }
+
+  async remove(req: Request, res: Response, next: NextFunction) {
+    let pel = await this.pelajaran.findOne(req.params.kd);
+    return this.pelajaran.remove(pel);
+  }
 }
