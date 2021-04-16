@@ -1,6 +1,5 @@
 import {Entity, PrimaryColumn, Column, OneToMany, ManyToOne} from 'typeorm';
 import {User} from './User';
-import {Nilai} from './Nilai';
 import {Kuis} from './Kuis';
 
 @Entity()
@@ -17,9 +16,9 @@ export class Pelajaran {
   @Column({default: null})
   gambar: string;
 
-  @ManyToOne(() => User, (user) => user.pelajarans)
+  @ManyToOne(() => User, (user) => user.pelajarans, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
   guru: User;
 
-  @OneToMany(() => Kuis, (kuis) => kuis.pelajaran)
+  @OneToMany(() => Kuis, (kuis) => kuis.pelajaran, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
   kuises: Kuis[];
 }

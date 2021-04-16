@@ -1,7 +1,7 @@
-import {Entity, Column, PrimaryColumn, ManyToOne, OneToMany} from 'typeorm'
-import {Sekolah} from './Sekolah'
-import {Nilai} from './Nilai'
-import {Pelajaran} from './Pelajaran'
+import {Entity, Column, PrimaryColumn, ManyToOne, OneToMany} from 'typeorm';
+import {Sekolah} from './Sekolah';
+import {Nilai} from './Nilai';
+import {Pelajaran} from './Pelajaran';
 
 export enum UserRole {
   ADMIN = 'admin',
@@ -16,32 +16,35 @@ export enum Jk {
 @Entity()
 export class User {
   @PrimaryColumn('varchar', {length: 20})
-  uid: string
+  uid: string;
 
   @Column()
-  firstName: string
+  firstName: string;
 
   @Column()
-  lastName: string
+  lastName: string;
 
   @Column({unique: true})
-  email: string
+  email: string;
 
   @Column()
-  password: string
+  password: string;
 
   @Column({type: 'enum', enum: Jk, default: Jk.L})
-  jk: Jk
+  jk: Jk;
 
   @Column({type: 'enum', enum: UserRole, default: UserRole.SISWA})
-  role: UserRole
+  role: UserRole;
 
   @ManyToOne(() => Sekolah, (sekolah) => sekolah.users, {onUpdate: 'CASCADE'})
-  sekolah: Sekolah
+  sekolah: Sekolah;
 
-  @OneToMany(() => Pelajaran, (pelajaran) => pelajaran.guru)
-  pelajarans: Pelajaran[]
+  @OneToMany(() => Pelajaran, (pelajaran) => pelajaran.guru, {
+    onDelete: 'CASCADE',
+    onUpdate: 'CASCADE',
+  })
+  pelajarans: Pelajaran[];
 
   @OneToMany(() => Nilai, (nilai) => nilai.user)
-  nilais: Nilai[]
+  nilais: Nilai[];
 }

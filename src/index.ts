@@ -11,6 +11,7 @@ import {ResultBack} from './resultBack';
 import userRoute from './route/UserRoute';
 import PelajaranRoute from './route/PelajaranRoute';
 import KuisRoute from './route/KuisRoute';
+import {webSocket} from './socket/webSocket';
 
 createConnection()
   .then(async (connection) => {
@@ -74,6 +75,7 @@ createConnection()
     app.set('port', PORT);
     // start express server
     const server = Http.createServer(app);
+    webSocket(server);
     server.listen(PORT);
 
     // insert new users for test

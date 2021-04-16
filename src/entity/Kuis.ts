@@ -20,7 +20,7 @@ export class Kuis {
   @Column()
   tenggat: string;
 
-  @ManyToOne(() => Pelajaran, (pel) => pel.kuises)
+  @ManyToOne(() => Pelajaran, (pel) => pel.kuises, {onDelete: 'CASCADE', onUpdate: 'CASCADE'})
   pelajaran: Pelajaran;
 
   @OneToMany(() => Nilai, (nilai) => nilai.kuis)
