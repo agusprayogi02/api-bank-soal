@@ -23,9 +23,12 @@ export class UserController {
   async save(req: Request, res: Response, next: NextFunction) {
     var getSekolah = await new SekolahController().findOne(req.params.id);
     var password = await bcrypt.hash(req.body.password, 10);
+    var email = String(req.body.email).toLowerCase();
     delete req.body.password;
+    delete req.body.email;
     var sekolah = {
       uid: makeid(16),
+      email,
       password,
       sekolah: getSekolah,
     };
@@ -71,11 +74,13 @@ export class UserController {
   }
 
   async login(req: Request, res: Response, next: NextFunction) {
-    console.log(req.body);
-    var result = this.userRepository.findOne({email: req.body.email}, {relations: ['sekolah']});
+    // console.log(req.body);
+    var email: string = String(req.body.email).toLowerCase();
+    // console.log(email);
+    var result = this.userRepository.findOne({email}, {relations: ['sekolah']});
     if (result instanceof Promise) {
       result.then(async (result) => {
-        console.log(result);
+        // console.log(result);
         if (result !== null && result !== undefined) {
           var hasil = await bcrypt.compare(req.body.password, result.password);
           if (hasil) {

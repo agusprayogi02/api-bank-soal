@@ -1,4 +1,4 @@
-import {Joi} from 'express-validation'
+import {Joi} from 'express-validation';
 
 export var loginValidation = {
   body: Joi.object({
@@ -7,4 +7,4 @@ export var loginValidation = {
       .regex(/[a-zA-Z0-9]{3,30}/)
       .required(),
   }),
-}
+};
