@@ -19,6 +19,25 @@ export class PelajaranController {
     console.log(req.file.filename);
   }
 
+  async update(req: Request, res: Response, next: NextFunction) {
+    var kd = req.body.kdPelajaran,
+      pel = await this.pelajaran.findOne(kd, {relations: ['guru']}),
+      user = await new UserController().findOne(req.body.uid),
+      data: object;
+    if (req.file == undefined || req.file == null) {
+      data = {
+        guru: user,
+      };
+    } else {
+      data = {
+        gambar: req.file.filename,
+        guru: user,
+      };
+    }
+    this.pelajaran.merge(pel, Object.assign(req.body, data));
+    return this.pelajaran.save(pel);
+  }
+
   async create(req: Request, res: Response, next: NextFunction) {
     var uid = req.body.uid,
       user = await new UserController().findOne(uid),

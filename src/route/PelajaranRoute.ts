@@ -3,6 +3,7 @@ import {PelajaranController} from '../controller/PelajaranController';
 import {upload} from '../multer';
 import {ResultBack} from '../resultBack';
 import {Route} from '../routes';
+import {handlingResult} from '../utils';
 
 const app: Router = Router();
 
@@ -12,6 +13,11 @@ app.post(
   (req: Request, res: Response, next: NextFunction) =>
     new PelajaranController().create(req, res, next),
 );
+
+app.put('/update', upload('pelajaran', 'image'), (req, res, next) => {
+  var result = new PelajaranController().update(req, res, next);
+  handlingResult(result, req, res, next);
+});
 
 app.post(
   '/upload',
